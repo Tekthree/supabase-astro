@@ -1,20 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
-// import { createClient } from '@supabase/supabase-js';
-// import { Client, GatewayIntentBits } from 'discord.js'; // Import the Discord library
+import galleryData from '../../public/galleryData';
 import { YouTube } from '@astro-community/astro-embed-youtube';
-import logo from '../../public/crew.png'
+// import { createClient } from '@supabase/supabase-js';
+import { Client, GatewayIntentBits } from 'discord.js'; // Import the Discord library
 
-// const client = new Client({
-//   intents: [
-//     GatewayIntentBits.Guilds,
-//     GatewayIntentBits.GuildMessages,
-//     GatewayIntentBits.MessageContent,
-//     GatewayIntentBits.GuildMembers,
-//   ],
-// }); // Create a new Discord client
 
-// const token = import.meta.env.DISCORD_BOT_TOKEN;
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+  ],
+}); // Create a new Discord client
+
+const token = import.meta.env.DISCORD_BOT_TOKEN;
 
 // const supabaseAdin = createClient(
 //   import.meta.env.PUBLIC_SUPABASE_URL,
@@ -23,160 +24,88 @@ import logo from '../../public/crew.png'
 
 // const { data } = await supabaseAdin.from('music').select('*').order('id');
 
-// // Replace with the ID of the text channel you want to search
-// const channelId = '1049841438919245925';
+// Replace with the ID of the text channel you want to search
+const channelId = '1062327975091126342';
 
-// client.on('ready', () => {
-//   console.log(`Logged in as ${client.user.tag}!`);
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
 
-//   // Get the text channel instance
-//   const channel = client.channels.cache.get(channelId);
+  // Get the text channel instance
+  const channel = client.channels.cache.get(channelId);
 
-//   // Fetch all messages in the channel
-//   let allMessages = [];
-//   let lastMessageId;
-//   const fetchMessages = () => {
-//     channel.messages
-//       .fetch({ limit: 100, before: lastMessageId })
-//       .then((messages) => {
-//         allMessages = allMessages.concat(messages);
-//         lastMessageId = messages.last().id;
-//         if (messages.size === 100) {
-//           fetchMessages();
-//         } else {
-//           // console.log(allMessages);
-//           // Code to filter and add YouTube URLs to playlist goes here
-//         }
+  // Fetch all messages in the channel
+  let allMessages = [];
+  let lastMessageId;
+  const fetchMessages = () => {
+    channel.messages
+      .fetch({ limit: 100, before: lastMessageId })
+      .then((messages) => {
+        allMessages = allMessages.concat(messages);
+        lastMessageId = messages.last().id;
+        if (messages.size === 100) {
+          fetchMessages();
+        } else {
+          // console.log(allMessages);
+          // Code to filter and add YouTube URLs to playlist goes here
+        }
 
-//         let youtubeUrls = [];
+        let youtubeUrls = [];
 
-//         const youtubeMessages = messages.filter((message) => {
-//           return message.content.includes('youtu');
-//         });
+        const youtubeMessages = messages.filter((message) => {
+          return message.content.includes('youtu');
+        });
 
-//         youtubeMessages.forEach((message) => {
-//           youtubeUrls.push({
-//             url: message.content.match(/https?:\/\/[^\s]+/)[0],
-//           });
-//         });
+        youtubeMessages.forEach((message) => {
+          youtubeUrls.push({
+            url: message.content.match(/https?:\/\/[^\s]+/)[0],
+          });
+        });
 
-//         console.log(youtubeUrls);
-//       });
-//   };
-//   fetchMessages();
-// });
+        console.log(youtubeUrls);
+      });
+  };
+  fetchMessages();
+});
 
-// client.login(token);
+client.login(token);
 
-const galleryData = [
-  { url: 'https://www.youtube.com/watch?v=QUJHidt3QpY' },
-  {
-    url: 'https://www.youtube.com/watch?v=Jzyo3-VzKjg&ab_channel=Mvthabrain',
-  },
-  { url: 'https://www.youtube.com/watch?v=XMPZ1huj_z0' },
-  { url: 'https://www.youtube.com/watch?v=hUce-g7WNtE' },
-  { url: 'https://youtu.be/uJtblNRcmMM' },
-  { url: 'https://www.youtube.com/watch?v=beQDzn_bLDw' },
-  { url: 'https://www.youtube.com/watch?v=8cRDx9-ODUc' },
-  { url: 'https://youtu.be/JE4HJK4F5K0' },
-  { url: 'https://youtu.be/P_xRboVrYKU' },
-  { url: 'https://youtu.be/8Q1I9pN8a-M' },
-  { url: 'https://youtu.be/fOO1mWLGhh8' },
-  {
-    url: 'https://www.youtube.com/watch?v=SwOYIntD1Wk&list=LL&index=259',
-  },
-  { url: 'https://youtu.be/GxFrAOK-qNk' },
-  { url: 'https://youtu.be/2RjU-4XzaGc' },
-  { url: 'https://youtu.be/fQnxzrz3uDA' },
-  { url: 'https://youtu.be/i-Puq1pgTXU' },
-  { url: 'https://youtu.be/oq2dfOyNaXE' },
-  { url: 'https://youtu.be/6Hy_4tQzuJg' },
-  { url: 'https://www.youtube.com/watch?v=bblSwA3Ir_I' },
-  { url: 'https://www.youtube.com/watch?v=f55HngFE9YM' },
-  { url: 'https://www.youtube.com/watch?v=qZFZh62tw3o' },
-  { url: 'https://www.youtube.com/watch?v=jckE3DzY3Pw' },
-  { url: 'https://youtu.be/IdNxeepSpuk' },
-  { url: 'https://www.youtube.com/watch?v=kNimjPIZdgI' },
-  { url: 'https://youtu.be/6EptaoA--IU' },
-  { url: 'https://youtu.be/iNpf1GqkQdc' },
-  { url: 'https://youtu.be/Fijwt0WMsH0' },
-  { url: 'https://www.youtube.com/watch?v=pM1BTmgtT3g' },
-  { url: 'https://www.youtube.com/watch?v=ucaCqYMHJVU' },
-  { url: 'https://www.youtube.com/watch?v=lju6E1vvq3Q' },
-  { url: 'https://youtu.be/Uvj3qhcKMuc' },
-  { url: 'https://youtu.be/QPdW3WKTBYk' },
-  { url: 'https://www.youtube.com/watch?v=7icGNCSMa5U' },
-  { url: 'https://youtu.be/AZOXyS_GMx4' },
-  { url: 'https://youtu.be/Usz1rlYxWLU' },
-  { url: 'https://youtu.be/UrTZ-ULZ6dY' },
-  { url: 'https://youtu.be/j-JB0Hwtu8Q' },
-  { url: 'https://www.youtube.com/watch?v=VT7hmCkIq4o' },
-  { url: 'https://youtu.be/azsynh_J_KI' },
-  { url: 'https://youtu.be/dz7V-Fxr7sI' },
-  {
-    url: 'https://music.youtube.com/watch?v=9NDaJtcusi4&feature=share',
-  },
-  { url: 'https://youtu.be/ow0dlCS2HH4' },
-  { url: 'https://www.youtube.com/watch?v=605sWoD5qxU' },
-  { url: 'https://youtu.be/KlLv3MihJRA' },
-  { url: 'https://youtu.be/d8KPzY9BY4Q' },
-  { url: 'https://youtu.be/BT_RwLwlGLc' },
-  { url: 'https://youtu.be/RlcfnYa-T4s' },
-  { url: 'https://youtu.be/54yOD994ors' },
-  {
-    url: 'https://www.youtube.com/watch?v=baTxdSdYR5E&list=LL&index=87',
-  },
-  { url: 'https://youtu.be/1oT88UUYwPM' },
-  { url: 'https://youtu.be/6JTb5ieO_jE' },
-  { url: 'https://youtu.be/daRZhJyyz_s' },
-  { url: 'https://youtu.be/fLqAPgR14S4' },
-  { url: 'https://www.youtube.com/watch?v=6NlstW2xvwc&t=6s' },
-];
 ---
 
 <Layout title='Welcome to Astro.'>
   <main class='bg-black'>
-    <div class='mx-auto max-w-7xl sm:px-6 lg:px-8'>
-      <!-- Content goes here -->
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
-        <div class="mx-auto max-w-3xl">
-          <!-- Content goes here -->
-          <img src={logo} alt="">
-        </div>
-      </div>
-      
+   <div class='mx-auto max-w-7xl sm:px-6 lg:px-8'>
+    <!-- Content goes here -->
 
-      <div class=''>
+    <div class=''>
+      <div
+        class='mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'
+      >
+        <h2 class='sr-only'>Products</h2>
+
         <div
-          class='mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'
+          class='grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'
         >
-          <h2 class='sr-only'>Products</h2>
-
-          <div
-            class='grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'
-          >
-            {
-              galleryData.map((card) => (
-                <div class='group '>
-                  <div class='aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray xl:aspect-w-7 xl:aspect-h-8'>
-                    <YouTube
-                      class='h-full w-full object-cover object-center group-hover:opacity-75'
-                      id={card.url}
-                    />
-                  </div>
-                  <h3 class='mt-4 text-sm text-gray-700'>{card.username}</h3>
-                  <p class='mt-1 text-lg font-medium text-gray-900'>
-                    {card.name}
-                  </p>
+          {
+            galleryData.map((card) => (
+              <div class='group '>
+                <div class='aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray xl:aspect-w-7 xl:aspect-h-8'>
+                  <YouTube
+                    class='h-full w-full object-cover object-center group-hover:opacity-75'
+                    id={card.url}
+                  />
                 </div>
-              ))
-            }
+                <h3 class='mt-4 text-sm text-gray-700'>{card.username}</h3>
+                <p class='mt-1 text-lg font-medium text-gray-900'>
+                  {card.name}
+                </p>
+              </div>
+            ))
+          }
 
-            <!-- More products... -->
-          </div>
+          <!-- More products... -->
         </div>
       </div>
     </div>
+  </div>
   </main>
 </Layout>
