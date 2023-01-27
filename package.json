@@ -23,6 +23,6 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
-    "netlify-plugin-cypress": "^2.2.0"
+    "netlify-plugin-cypress": "^1.2.0"
   }
 }
