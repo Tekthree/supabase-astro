@@ -1,71 +1,72 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { createClient } from '@supabase/supabase-js';
-import { Client, GatewayIntentBits } from 'discord.js'; // Import the Discord library
+// import { createClient } from '@supabase/supabase-js';
+// import { Client, GatewayIntentBits } from 'discord.js'; // Import the Discord library
 import { YouTube } from '@astro-community/astro-embed-youtube';
+import logo from '../../public/crew.png'
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildMembers,
-  ],
-}); // Create a new Discord client
+// const client = new Client({
+//   intents: [
+//     GatewayIntentBits.Guilds,
+//     GatewayIntentBits.GuildMessages,
+//     GatewayIntentBits.MessageContent,
+//     GatewayIntentBits.GuildMembers,
+//   ],
+// }); // Create a new Discord client
 
-const token = import.meta.env.DISCORD_BOT_TOKEN;
+// const token = import.meta.env.DISCORD_BOT_TOKEN;
 
-const supabaseAdin = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.SUPABASE_SERVICE_ROLE_KEY
-);
+// const supabaseAdin = createClient(
+//   import.meta.env.PUBLIC_SUPABASE_URL,
+//   import.meta.env.SUPABASE_SERVICE_ROLE_KEY
+// );
 
-const { data } = await supabaseAdin.from('music').select('*').order('id');
+// const { data } = await supabaseAdin.from('music').select('*').order('id');
 
-// Replace with the ID of the text channel you want to search
-const channelId = '1049841438919245925';
+// // Replace with the ID of the text channel you want to search
+// const channelId = '1049841438919245925';
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+// client.on('ready', () => {
+//   console.log(`Logged in as ${client.user.tag}!`);
 
-  // Get the text channel instance
-  const channel = client.channels.cache.get(channelId);
+//   // Get the text channel instance
+//   const channel = client.channels.cache.get(channelId);
 
-  // Fetch all messages in the channel
-  let allMessages = [];
-  let lastMessageId;
-  const fetchMessages = () => {
-    channel.messages
-      .fetch({ limit: 100, before: lastMessageId })
-      .then((messages) => {
-        allMessages = allMessages.concat(messages);
-        lastMessageId = messages.last().id;
-        if (messages.size === 100) {
-          fetchMessages();
-        } else {
-          // console.log(allMessages);
-          // Code to filter and add YouTube URLs to playlist goes here
-        }
+//   // Fetch all messages in the channel
+//   let allMessages = [];
+//   let lastMessageId;
+//   const fetchMessages = () => {
+//     channel.messages
+//       .fetch({ limit: 100, before: lastMessageId })
+//       .then((messages) => {
+//         allMessages = allMessages.concat(messages);
+//         lastMessageId = messages.last().id;
+//         if (messages.size === 100) {
+//           fetchMessages();
+//         } else {
+//           // console.log(allMessages);
+//           // Code to filter and add YouTube URLs to playlist goes here
+//         }
 
-        let youtubeUrls = [];
+//         let youtubeUrls = [];
 
-        const youtubeMessages = messages.filter((message) => {
-          return message.content.includes('youtu');
-        });
+//         const youtubeMessages = messages.filter((message) => {
+//           return message.content.includes('youtu');
+//         });
 
-        youtubeMessages.forEach((message) => {
-          youtubeUrls.push({
-            url: message.content.match(/https?:\/\/[^\s]+/)[0],
-          });
-        });
+//         youtubeMessages.forEach((message) => {
+//           youtubeUrls.push({
+//             url: message.content.match(/https?:\/\/[^\s]+/)[0],
+//           });
+//         });
 
-        console.log(youtubeUrls);
-      });
-  };
-  fetchMessages();
-});
+//         console.log(youtubeUrls);
+//       });
+//   };
+//   fetchMessages();
+// });
 
-client.login(token);
+// client.login(token);
 
 const galleryData = [
   { url: 'https://www.youtube.com/watch?v=QUJHidt3QpY' },
@@ -137,6 +138,14 @@ const galleryData = [
   <main class='bg-black'>
     <div class='mx-auto max-w-7xl sm:px-6 lg:px-8'>
       <!-- Content goes here -->
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+        <div class="mx-auto max-w-3xl">
+          <!-- Content goes here -->
+          <img src={logo} alt="">
+        </div>
+      </div>
+      
 
       <div class=''>
         <div
